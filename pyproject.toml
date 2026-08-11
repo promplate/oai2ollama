@@ -9,7 +9,7 @@ dependencies = [
     "dotenv-pth~=1.0.0",
     "fastapi>=0.140.13,<0.142.0",
     "httpx[http2]~=0.28.1",
-    "pydantic-settings>=2.10.1,<2.15.0",
+    "pydantic-settings>=2.10.1,<2.16.0",
     "uvicorn-hmr~=0.1.1",
 ]
 
