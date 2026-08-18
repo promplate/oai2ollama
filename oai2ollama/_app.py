@@ -1,9 +1,24 @@
+import os
+from contextlib import asynccontextmanager
+
 from fastapi import Depends, FastAPI, Request
 from fastapi.responses import StreamingResponse
+from maping import Recorder
+from maping.asgi import MapingMiddleware
 
 from .config import env
 
-app = FastAPI()
+recorder = Recorder(service="oai2ollama")
+
+
+@asynccontextmanager
+async def _lifespan(app: FastAPI):
+    await recorder.start()
+    yield
+    await recorder.shutdown()
+
+
+app = FastAPI(lifespan=_lifespan)
 
 
 @Depends
@@ -63,3 +78,7 @@ async def chat_completions(request: Request, client=_new_client):
 @app.get("/api/version")
 async def ollama_version():
     return {"version": "0.12.10"}
+
+
+if os.environ.get("MAPING_KEY"):
+    app = MapingMiddleware(app, recorder=recorder)
