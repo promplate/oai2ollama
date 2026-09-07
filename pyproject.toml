@@ -55,7 +55,7 @@ extend-select = [
 ]
 
 [dependency-groups]
-dev = ["mkdocstrings-python~=2.0.1", "ruff~=0.16.0", "zensical==0.0.51"]
+dev = ["mkdocstrings-python~=2.0.1", "ruff~=0.16.0", "zensical==0.0.59"]
 
 [tool.pyright]
 typeCheckingMode = "standard"
